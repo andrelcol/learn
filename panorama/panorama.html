@@ -13,11 +13,35 @@
         AFRAME.registerComponent('config', {
             init: function () {
                 const vrInterface = this.el.components['vr-interface'];
-                vrInterface.addButton('zoomOut', '#zoomOut', () => {
-                    
+                var skyEl = this.el.sceneEl.querySelector('#place');
+
+                vrInterface.addButton('a', '#a', () => {
+                    this.el.addEventListener("click", function () {
+                        skyEl.setAttribute('src', '#place-2');
+                    });
+                });
+
+                vrInterface.addButton('ad', '#ad', () => {
+                    this.el.addEventListener("click", function () {
+                        skyEl.setAttribute('src', '#photosphere-0');
+                    });
+                });
+
+                document.addEventListener('pointerlockchange', (event) => {
+                    vrInterface.show();
+                    self.hide = false;
+                });
+                this.el.addEventListener('buttondown', () => {
+                    self.hide = !self.hide;
+                    if (self.hide) {
+                        vrInterface.hide();
+                    }
+                    else {
+                        vrInterface.show();
+                    }
                 });
             }
-        });          
+        });
     </script>
 
 </head>
@@ -25,8 +49,10 @@
     <a-scene>
         <a-assets>
             <img id="zoomOut" src="zoomout.png">
-            <img id="ceu" src="puydesancy.jpg">
-            <img src="a.jpg" id="img-photosphere-3">
+            <img id="photosphere-0" src="puydesancy.jpg">
+
+            <img src="a.jpg" id="da">
+
             <img src="aa.jpg" id="img-photosphere-3-thumb">
             <img src="e.jpg" id="img-photosphere-4">
             <img src="ee.jpg" id="img-photosphere-4-thumb">
@@ -36,11 +62,15 @@
             <img src="bb.jpg" id="img-photosphere-1-thumb">
             <img src="c.jpg" id="img-photosphere-6">
             <img src="cc.jpg" id="img-photosphere-6-thumb">
-            <img src="d.jpg" id="img-photosphere-2">
-            <img src="dd.jpg" id="img-photosphere-2-thumb">
+
+            <img src="d.jpg" id="place-2">
+
+            <img src="ad.png" id="ad">
+
+            <img src="dd.jpg" id="a">
         </a-assets>
 
-        <a-sky src="#ceu" rotation="0 -130 0"></a-sky>
+        <a-sky src="#photosphere-0" rotation="0 -130 0" id="place"></a-sky>
 
         <a-entity vr-interface="dimension: 3 2; border: 1.2 #6d7584" visible="true" "
                   config button-controls>
