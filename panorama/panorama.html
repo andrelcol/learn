@@ -16,15 +16,15 @@
                 var skyEl = this.el.sceneEl.querySelector('#place');
 
                 vrInterface.addButton('a', '#a', () => {
-                    this.el.addEventListener("click", function () {
+
                         skyEl.setAttribute('src', '#place-2');
-                    });
+
                 });
 
                 vrInterface.addButton('ad', '#ad', () => {
-                    this.el.addEventListener("click", function () {
+                    
                         skyEl.setAttribute('src', '#photosphere-0');
-                    });
+                    
                 });
 
                 document.addEventListener('pointerlockchange', (event) => {
