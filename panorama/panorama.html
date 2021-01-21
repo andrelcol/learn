@@ -16,15 +16,11 @@
                 var skyEl = this.el.sceneEl.querySelector('#place');
 
                 vrInterface.addButton('a', '#a', () => {
-
-                        skyEl.setAttribute('src', '#place-2');
-
+                    skyEl.setAttribute('src', '#place-2');
                 });
 
                 vrInterface.addButton('ad', '#ad', () => {
-                    
-                        skyEl.setAttribute('src', '#photosphere-0');
-                    
+                    skyEl.setAttribute('src', '#photosphere-0');
                 });
 
                 document.addEventListener('pointerlockchange', (event) => {
@@ -49,6 +45,7 @@
     <a-scene>
         <a-assets>
             <img id="zoomOut" src="zoomout.png">
+
             <img id="photosphere-0" src="puydesancy.jpg">
 
             <img src="a.jpg" id="da">
