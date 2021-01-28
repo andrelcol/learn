@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>360&deg; </title>
+    <title>Know the World </title>
     <meta name="description" content="360&deg; Image - A-Frame">
     <script src="../dist/aframe-master.js"></script>
     <script src="../dist/vr-interface.js"></script>
@@ -61,6 +61,20 @@
                     vrInterface.showSideText(string);
                 });
 
+                vrInterface.addButton('prerow1', '#prerow1', () => {
+                    skyEl.setAttribute('src', '#prerow');
+                    string = '\n\nPrerow is a municipality in the district of Vorpommern-Rügen in the German state of Mecklenburg-Vorpommern.\n';
+                    string += 'The seaside resort of Prerow is located within the Western Pomerania Lagoon Area National Park which stretches from Ahrenshoop along the southern coast to the island of Hiddensee. \n\n\n\n';
+                    vrInterface.showSideText(string);
+                });
+
+                vrInterface.addButton('st-pter1', '#st-pter1', () => {
+                    skyEl.setAttribute('src', '#st-pter');
+                    string = '\n\nSaint Petersburg is situated on the Neva River, at the head of the Gulf of Finland on the Baltic Sea, with a population of roughly 5.4 million residents..\n';
+                    string += 'Saint Petersburg is known as the "Cultural Capital of Russia", and received over 15 million tourists in 2018, and is considered an important \neconomic, scientific, cultural, and tourism centre of Russia and Europe. \n\n\n\n';
+                    vrInterface.showSideText(string);
+                });
+
                 document.addEventListener('pointerlockchange', (event) => {
                     vrInterface.show();
                     self.hide = false;
@@ -94,10 +108,7 @@
             <img src="test.jpeg" id="bigbang">
             <img src="gavea2.jpg" id="gavea">
             <img src="palacio.jpg" id="castle">
-
             <img src="palacioO.jpg" id="palacioO">
-
-
             <img src="time.png" id="time">
 
 
@@ -108,12 +119,12 @@
 
             <img src="italy1.png" id="italy1">
 
-            <img src="cc.jpg" id="img-photosphere-6-thumb">
-
-
+            <img src="prerow2.jpg" id="prerow">
+            <img src="st-pter.jpg" id="st-pter">
+            <img src="st-pter1.png" id="st-pter1">
             <img src="fort.png" id="fort">
 
-            <img src="dd.jpg" id="a">
+            <img src="prerow1.png" id="prerow1">
         </a-assets>
 
         <a-sky src="#fort-point" rotation="0 -100 0" id="place"></a-sky>
