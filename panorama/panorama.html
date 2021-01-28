@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>360&deg; Image</title>
+    <title>360&deg; I</title>
     <meta name="description" content="360&deg; Image - A-Frame">
     <script src="../dist/aframe-master.js"></script>
     <script src="../dist/vr-interface.js"></script>
@@ -14,6 +14,8 @@
             init: function () {
                 const vrInterface = this.el.components['vr-interface'];
                 var skyEl = this.el.sceneEl.querySelector('#place');
+                let string = 'aaa';
+                vrInterface.showSideText(string);
 
                 vrInterface.addButton('a', '#a', () => {
                     skyEl.setAttribute('src', '#place-2');
@@ -36,6 +38,11 @@
                         vrInterface.show();
                     }
                 });
+
+            },
+            updateinfo: function () {
+                let string = 'b';
+                this.vrInterface.showSideText(string);
             }
         });
     </script>
@@ -69,7 +76,7 @@
 
         <a-sky src="#photosphere-0" rotation="0 -130 0" id="place"></a-sky>
 
-        <a-entity vr-interface="dimension: 3 2; border: 1.2 #6d7584" visible="true" "
+        <a-entity vr-interface="dimension: 4 2; theta: 135; transparency: true; gap: 0.01 0.01; border: 1 #6d7584;"
                   config button-controls>
         </a-entity>
 
