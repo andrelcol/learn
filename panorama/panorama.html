@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>360&deg; I</title>
+    <title>360&deg; </title>
     <meta name="description" content="360&deg; Image - A-Frame">
     <script src="../dist/aframe-master.js"></script>
     <script src="../dist/vr-interface.js"></script>
@@ -14,15 +14,51 @@
             init: function () {
                 const vrInterface = this.el.components['vr-interface'];
                 var skyEl = this.el.sceneEl.querySelector('#place');
-                let string = 'aaa';
+                let string = '\n\nFort Point is a masonry seacoast fortification located on the southern side of the Golden Gate at the entrance to San Francisco Bay.\n';
+                string += 'It is also the geographic name of the promontory upon which the fort and the southern approach of the Golden Gate Bridge were constructed.\n\n\n';
+             
                 vrInterface.showSideText(string);
 
-                vrInterface.addButton('a', '#a', () => {
-                    skyEl.setAttribute('src', '#place-2');
+                vrInterface.addButton('fort', '#fort', () => {
+                    skyEl.setAttribute('src', '#fort-point');
+                    string = '\n\nFort Point is a masonry seacoast fortification located on the southern side of the Golden Gate at the entrance to San Francisco Bay.\n';
+                    string += 'It is also the geographic name of the promontory upon which the fort and the southern approach of the Golden Gate Bridge were constructed.\n\n\n';
+                    vrInterface.showSideText(string);
                 });
 
-                vrInterface.addButton('ad', '#ad', () => {
-                    skyEl.setAttribute('src', '#photosphere-0');
+                vrInterface.addButton('time', '#time', () => {
+                    skyEl.setAttribute('src', '#time-square');
+                    string = '\n\nTimes Square is a section of Manhattan, New York City.It is a major center for tourism, show business and commerce.\n';
+                    string += 'It is named for the New York Times which formerly had its main building there.One of the biggest stations in the New York City Subway system is under.\n\n';
+                    vrInterface.showSideText(string);
+                });
+
+                vrInterface.addButton('miami1', '#miami1', () => {
+                    skyEl.setAttribute('src', '#miami');
+                    string = '\n\nMiami is a metropolis located in southeastern Florida in the United States.It is the third most populous metropolis on\n the East coast of the United States, and it is the seventh largest in the country.\n';
+                    string += 'It is also the major center and leader in finance, commerce, culture, arts, and international trade.\n\n\n';
+                    vrInterface.showSideText(string);
+                });
+
+                vrInterface.addButton('italy1', '#italy1', () => {
+                    skyEl.setAttribute('src', '#italy');
+                    string = '\n\nBrennero is located in South Tyrol, in Italy. It is famous for its ski resorts and receives many visitors in the winter.\n';
+                    string += 'It is also have the Plessi Museum that has a amazing architecture.\n\n\n';
+                    vrInterface.showSideText(string);
+                });
+
+                vrInterface.addButton('gavea1', '#gavea1', () => {
+                    skyEl.setAttribute('src', '#gavea');
+                    string = '\n\n\nGavea is a favorite residential area and lies close to Leblon, Lagoa, Jardim Botanico and São Conrado. It has its own quaint \ncharm and attractions that makes it a popular tourist spot.';
+                    string += 'It is also offers lots of different cultural attractions around the neighborhood, and is home to one of the largest universities in the country, PUC.\n\n\n\n';
+                    vrInterface.showSideText(string);
+                });
+
+                vrInterface.addButton('palacioO', '#palacioO', () => {
+                    skyEl.setAttribute('src', '#castle');
+                    string = '\n\nThe Aljafería Palace is a fortified medieval palace built during the second half of the 11th century in the Taifa of Zaragoza in Al-Andalus,\n present day Zaragoza, Aragon, Spain.';
+                    string += 'The structure holds unique importance in that it is the only conserved testimony of a large building of Spanish\n Islamic architecture of the era of the Taifas (independent kingdoms). \n\n\n\n';
+                    vrInterface.showSideText(string);
                 });
 
                 document.addEventListener('pointerlockchange', (event) => {
@@ -51,30 +87,36 @@
 <body>
     <a-scene>
         <a-assets>
-            <img id="zoomOut" src="zoomout.png">
+            <img src="time-square.jpeg" id="time-square">
+            <img id="fort-point" src="fort-point-3.jpeg">
+            <img src="miami.jpeg" id="miami">
+            <img src="italy.jpeg" id="italy">
+            <img src="test.jpeg" id="bigbang">
+            <img src="gavea2.jpg" id="gavea">
+            <img src="palacio.jpg" id="castle">
 
-            <img id="photosphere-0" src="puydesancy.jpg">
+            <img src="palacioO.jpg" id="palacioO">
 
-            <img src="a.jpg" id="da">
 
-            <img src="aa.jpg" id="img-photosphere-3-thumb">
-            <img src="e.jpg" id="img-photosphere-4">
-            <img src="ee.jpg" id="img-photosphere-4-thumb">
-            <img src="f.jpg" id="img-photosphere-5">
-            <img src="ff.jpg" id="img-photosphere-5-thumb">
-            <img src="b.jpg" id="img-photosphere-1">
-            <img src="bb.jpg" id="img-photosphere-1-thumb">
-            <img src="c.jpg" id="img-photosphere-6">
+            <img src="time.png" id="time">
+
+
+
+            <img src="gavea1.png" id="gavea1">
+
+            <img src="miami1.png" id="miami1">
+
+            <img src="italy1.png" id="italy1">
+
             <img src="cc.jpg" id="img-photosphere-6-thumb">
 
-            <img src="d.jpg" id="place-2">
 
-            <img src="ad.png" id="ad">
+            <img src="fort.png" id="fort">
 
             <img src="dd.jpg" id="a">
         </a-assets>
 
-        <a-sky src="#photosphere-0" rotation="0 -130 0" id="place"></a-sky>
+        <a-sky src="#fort-point" rotation="0 -100 0" id="place"></a-sky>
 
         <a-entity vr-interface="dimension: 4 2; theta: 135; transparency: true; gap: 0.01 0.01; border: 1 #6d7584;"
                   config button-controls>

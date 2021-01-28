@@ -480,7 +480,7 @@ AFRAME.registerComponent('vr-interface', {
     }
 
     function updateSideText(parent) {
-      sideText.children[1].scale.x = text.reduce((prev, curr) => curr.length > prev.length ? curr : prev).length * 0.0275;
+      sideText.children[1].scale.x = text.reduce((prev, curr) => curr.length > prev.length ? curr : prev).length * 0.0075;
       sideText.children[1].scale.y = text.length * 0.05;
       parent.positionateSideText();
     }
