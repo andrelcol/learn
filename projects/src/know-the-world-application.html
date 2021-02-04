@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Know the World </title>
+    <meta name="description" content="360&deg; Image - A-Frame">
+    <script src="../libs/aframe-master.js"></script>
+    <script src="../libs/vr-interface.js"></script>
+    <script src="../libs/aframe-button-controls.js"></script>
+
+    <script>
+        AFRAME.registerComponent('config', {
+            init: function () {
+                const vrInterface = this.el.components['vr-interface'];
+                var skyEl = this.el.sceneEl.querySelector('#place');
+                let string = '\n\n\nPLACE: San Francisco, California United States of America.';
+                string += '\n\nFort Point is a masonry seacoast fortification located on the southern side of the Golden Gate at the entrance to San Francisco Bay.\n';
+                string += 'It is also the geographic name of the promontory upon which the fort and the southern approach of the Golden Gate Bridge were constructed.\n\n\n';
+             
+                vrInterface.showSideText(string);
+
+                vrInterface.addButton('fort', '#fort', () => {
+                    skyEl.setAttribute('src', '#fort-point');
+                    string = '\n\n\nPLACE: San Francisco, California United States of America.';
+                    string += '\n\nFort Point is a masonry seacoast fortification located on the southern side of the Golden Gate at the entrance to San Francisco Bay.\n';
+                    string += 'It is also the geographic name of the promontory upon which the fort and the southern approach of the Golden Gate Bridge were constructed.\n\n\n';
+                    vrInterface.showSideText(string);
+                });
+
+                vrInterface.addButton('time', '#time', () => {
+                    skyEl.setAttribute('src', '#time-square');
+                    string = '\n\n\nPLACE: New York City, New York, United States of America.';
+                    string += '\n\nTimes Square is a section of Manhattan, New York City.It is a major center for tourism, show business and commerce.\n';
+                    string += 'It is named for the New York Times which formerly had its main building there.One of the biggest stations in the New York City Subway system is under.\n\n';
+                    vrInterface.showSideText(string);
+                });
+
+                vrInterface.addButton('miami1', '#miami1', () => {
+                    skyEl.setAttribute('src', '#miami');
+                    string = '\n\n\nPLACE: City of Miami, Florida, United States of America';
+                    string += '\n\nMiami is a metropolis located in southeastern Florida in the United States.It is the third most populous metropolis on\n the East coast of the United States, and it is the seventh largest in the country.\n';
+                    string += 'It is also the major center and leader in finance, commerce, culture, arts, and international trade.\n\n\n';
+                    vrInterface.showSideText(string);
+                });
+
+                vrInterface.addButton('italy1', '#italy1', () => {
+                    skyEl.setAttribute('src', '#italy');
+                    string = '\n\n\nPLACE: Bolzano, Trentino-Alto Adige, Italy';
+                    string += '\n\nBrennero is located in South Tyrol, in Italy. It is famous for its ski resorts and receives many visitors in the winter.\n';
+                    string += 'It is also have the Plessi Museum that has a amazing architecture.\n\n\n';
+                    vrInterface.showSideText(string);
+                });
+
+                vrInterface.addButton('gavea1', '#gavea1', () => {
+                    skyEl.setAttribute('src', '#gavea');
+                    string = '\n\n\nPLACE: City of Rio de Janeiro, Rio de Janeiro, Brazil';
+                    string += '\n\n\nGavea is a favorite residential area and lies close to Leblon, Lagoa, Jardim Botanico and São Conrado. It has its own quaint \ncharm and attractions that makes it a popular tourist spot.';
+                    string += 'It is also offers lots of different cultural attractions around the neighborhood, and is home\n to one of the largest universities in the country, PUC.\n\n\n\n';
+                    vrInterface.showSideText(string);
+                });
+
+                vrInterface.addButton('palacioO', '#palacioO', () => {
+                    skyEl.setAttribute('src', '#castle');
+                    string = '\n\n\nPLACE:  Zaragoza, Aragon, Spain.';
+                    string += '\n\nThe Aljafería Palace is a fortified medieval palace built during the second half of the 11th century in the Taifa of Zaragoza in Al-Andalus,\n present day Zaragoza, Aragon, Spain.';
+                    string += 'The structure holds unique importance in that it is the only conserved testimony of a large building of Spanish\n Islamic architecture of the era of the Taifas (independent kingdoms). \n\n\n\n';
+                    vrInterface.showSideText(string);
+                });
+
+                vrInterface.addButton('prerow1', '#prerow1', () => {
+                    skyEl.setAttribute('src', '#prerow');
+                    string = '\n\n\nPLACE: Prerow,  Mecklenburg-Vorpommern, Germany.';
+                    string += '\n\nPrerow is a municipality in the district of Vorpommern-Rügen in the German state of Mecklenburg-Vorpommern.\n';
+                    string += 'The seaside resort of Prerow is located within the Western Pomerania Lagoon Area National Park which stretches from Ahrenshoop along\n the southern coast to the island of Hiddensee. \n\n\n\n';
+                    vrInterface.showSideText(string);
+                });
+
+                vrInterface.addButton('st-pter1', '#st-pter1', () => {
+                    skyEl.setAttribute('src', '#st-pter');
+                    string = '\n\n\nPLACE: Saint Petersburg, Northwestern, Russia.';
+                    string += '\n\nSaint Petersburg is situated on the Neva River, at the head of the Gulf of Finland on the Baltic Sea, with a population of roughly 5.4 million residents..\n';
+                    string += 'Saint Petersburg is known as the "Cultural Capital of Russia", and received over 15 million tourists in 2018, and is considered an important \neconomic, scientific, cultural, and tourism centre of Russia and Europe. \n\n\n\n';
+                    vrInterface.showSideText(string);
+                });
+
+                document.addEventListener('pointerlockchange', (event) => {
+                    vrInterface.show();
+                    self.hide = false;
+                });
+                this.el.addEventListener('buttondown', () => {
+                    self.hide = !self.hide;
+                    if (self.hide) {
+                        vrInterface.hide();
+                    }
+                    else {
+                        vrInterface.show();
+                    }
+                });
+
+            },
+            updateinfo: function () {
+                let string = 'b';
+                this.vrInterface.showSideText(string);
+            }
+        });
+    </script>
+
+</head>
+<body>
+    <a-scene>
+        <a-assets>
+            <img src="../img/Know-the-world/time-square.jpeg" id="time-square">
+            <img id="fort-point" src="../img/Know-the-world/fort-point-3.jpeg">
+            <img src="../img/Know-the-world/miami.jpeg" id="miami">
+            <img src="../img/Know-the-world/italy.jpeg" id="italy">
+            <img src="../img/Know-the-world/test.jpeg" id="bigbang">
+            <img src="../img/Know-the-world/gavea2.jpg" id="gavea">
+            <img src="../img/Know-the-world/palacio.jpg" id="castle">
+            <img src="../img/Know-the-world/palacioO.jpg" id="palacioO">
+            <img src="../img/Know-the-world/time.png" id="time">
+
+
+
+            <img src="../img/Know-the-world/gavea1.png" id="gavea1">
+
+            <img src="../img/Know-the-world/miami1.png" id="miami1">
+
+            <img src="../img/Know-the-world/italy1.png" id="italy1">
+
+            <img src="../img/Know-the-world/prerow2.jpg" id="prerow">
+            <img src="../img/Know-the-world/st-pter.jpg" id="st-pter">
+            <img src="../img/Know-the-world/st-pter1.png" id="st-pter1">
+            <img src="../img/Know-the-world/fort.png" id="fort">
+
+            <img src="../img/Know-the-world/prerow1.png" id="prerow1">
+        </a-assets>
+
+        <a-sky src="#fort-point" rotation="0 -100 0" id="place"></a-sky>
+
+        <a-entity vr-interface="dimension: 4 2; theta: 135; transparency: true; gap: 0.01 0.01; border: 1 #6d7584;"
+                  config button-controls>
+        </a-entity>
+
+
+        <a-entity id="rig" position="0 0 0" rotation="0 0 0">
+            <a-entity id="camera" camera position="0 1.6 0" look-controls="pointerLockEnabled: true"
+                      wasd-controls="acceleration:150; fly: true; enabled: false">
+            </a-entity>
+            </entity>
+    </a-scene>
+</body>
+</html>

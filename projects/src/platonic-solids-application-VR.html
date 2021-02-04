@@ -1,0 +1,285 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platonic Solids VR</title>
+    <link rel="stylesheet" href="../../css/w3.css">
+
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+
+    <!-- Library of Virtual Reality -->
+    <script type="text/javascript" charset="UTF-8" src="../libs/aframe-master.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="../libs/vr-interface.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="../libs/aframe-button-controls.js"></script>
+
+
+    <script>
+
+
+        AFRAME.registerComponent('config', {
+            init: function () {
+                const self = this;
+                const vrInterface = this.el.components['vr-interface'];
+                this.models = document.querySelectorAll('.menu-model');
+                this.modelIndex = 0;
+                this.rotate = true;
+                this.info = 1;
+                this.wireframe = false;
+                this.wireframeColor = '#000';
+
+                function createTetrahedronWireframe(radius, detail) {
+                    var wireframe = new THREE.LineBasicMaterial();
+                    let edges = new THREE.EdgesGeometry(new THREE.TetrahedronGeometry(radius, detail));
+                    let object = new THREE.LineSegments(edges, wireframe);
+                    object.castShadow = true;
+                    object.position.set(0, 0, 0);
+                    object.visible = false;
+                    object.name = "TetrahedronWireframe";
+                    return object;
+                }
+                function createCubeWireframe(s) {
+                    var wireframe = new THREE.LineBasicMaterial();
+                    let edges = new THREE.EdgesGeometry(new THREE.BoxGeometry(s, s, s));
+                    let object = new THREE.LineSegments(edges, wireframe);
+                    object.castShadow = true;
+                    object.position.set(0.0, 0, 0.0);
+                    object.name = "CubeWireframe";
+                    object.visible = false;
+                    return object;
+                }
+
+                function createOctahedronWireframe(radius, detail) {
+                    var wireframe = new THREE.LineBasicMaterial();
+                    const edges = new THREE.EdgesGeometry(new THREE.OctahedronGeometry(radius, detail));
+                    const object = new THREE.LineSegments(edges, wireframe);
+                    object.castShadow = true;
+                    object.position.set(0.0, 0, 0.0);
+                    object.name = "OcatahedronWireframe";
+                    object.visible = false;
+                    return object;
+                }
+
+                function createDodecahedronWireframe(radius, detail) {
+                    var wireframe = new THREE.LineBasicMaterial();
+                    const edges = new THREE.EdgesGeometry(new THREE.DodecahedronGeometry(radius, detail));
+                    const object = new THREE.LineSegments(edges, wireframe);
+                    object.castShadow = true;
+                    object.position.set(0.0, 0, 0.0);
+                    object.name = "DodecahedronWireframe";
+                    object.visible = false;
+                    return object;
+                }
+
+                function createIcosahedronWireframe(radius, detail) {
+                    var wireframe = new THREE.LineBasicMaterial();
+                    const edges = new THREE.EdgesGeometry(new THREE.IcosahedronGeometry(radius, detail));
+                    const object = new THREE.LineSegments(edges, wireframe);
+                    object.castShadow = true;
+                    object.position.set(0.0, 0, 0.0);
+                    object.name = "IcosahedronWireframe";
+                    object.visible = false;
+                    return object;
+                }
+
+                this.models[0].setObject3D("Wireframe", createTetrahedronWireframe(1.0, 0));
+                this.models[1].setObject3D("Wireframe", createCubeWireframe(1.0));
+                this.models[2].setObject3D("Wireframe", createOctahedronWireframe(1.0, 0));
+                this.models[3].setObject3D("Wireframe", createDodecahedronWireframe(1.0, 0));
+                this.models[4].setObject3D("Wireframe", createIcosahedronWireframe(1.0, 0));
+
+                vrInterface.addButton('previous', '#previous', () => {
+                    self.models[self.modelIndex].object3D.visible = false;
+
+                    if (self.modelIndex == 0) {
+                        self.modelIndex = self.models.length - 1;
+                    }
+                    else {
+                        self.modelIndex--;
+                    }
+
+                    self.models[self.modelIndex].object3D.scale.set(self.info, self.info, self.info);
+                    self.models[self.modelIndex].object3D.position.y = self.info;
+                    self.models[self.modelIndex].object3D.visible = true;
+                    if (this.wireframe) {
+                        self.models[self.modelIndex].object3D.children[0].visible = false;
+                        self.models[self.modelIndex].object3D.children[1].visible = true;
+                    } else {
+                        self.models[self.modelIndex].object3D.children[0].visible = true;
+                        self.models[self.modelIndex].object3D.children[1].visible = false;
+                    }
+                    vrInterface.showMessage(`${self.models[self.modelIndex].getAttribute('name')} model loaded`);
+                });
+
+                vrInterface.addButton('next', '#next', () => {
+                    self.models[self.modelIndex].object3D.visible = false;
+
+                    if (self.modelIndex == self.models.length - 1) {
+                        self.modelIndex = 0;
+                    }
+                    else {
+                        self.modelIndex++;
+                    }
+                    self.models[self.modelIndex].object3D.visible = true;
+                    self.models[self.modelIndex].object3D.scale.set(self.info, self.info, self.info);
+                    self.models[self.modelIndex].object3D.position.y = self.info;
+                    if (this.wireframe) {
+                        self.models[self.modelIndex].object3D.children[0].visible = false;
+                        self.models[self.modelIndex].object3D.children[1].visible = true;
+                    } else {
+                        self.models[self.modelIndex].object3D.children[0].visible = true;
+                        self.models[self.modelIndex].object3D.children[1].visible = false;
+                    }
+                    vrInterface.showMessage(`${self.models[self.modelIndex].getAttribute('name')} model loaded`);
+                });
+
+                vrInterface.addButton('decrease', '#decrease', () => {
+                    if (this.info == 0.5) {
+                        vrInterface.showMessage('Min size reached already')
+                    }
+                    if (self.models[self.modelIndex].object3D.position.y == 1) {
+                        self.models[self.modelIndex].object3D.scale.set(0.5, 0.5, 0.5);
+                        self.models[self.modelIndex].object3D.position.y = 0.5;
+                        this.info = 0.5;
+                        vrInterface.showMessage('Size decreased')
+                    }
+                    if (self.models[self.modelIndex].object3D.position.y == 2) {
+                        self.models[self.modelIndex].object3D.scale.set(1, 1, 1);
+                        self.models[self.modelIndex].object3D.position.y = 1;
+                        this.info = 1;
+                        vrInterface.showMessage('Size decreased')
+                    }
+
+                });
+
+
+                vrInterface.addButton('increase', '#increase', () => {
+                    if (this.info == 2) {
+                        vrInterface.showMessage('Max size reached already')
+                    }
+                    if (self.models[self.modelIndex].object3D.position.y == 1) {
+                        self.models[self.modelIndex].object3D.scale.set(2, 2, 2);
+                        self.models[self.modelIndex].object3D.position.y = 2;
+                        this.info = 2;
+                        vrInterface.showMessage('Size increased');
+                    }
+                    if (self.models[self.modelIndex].object3D.position.y == 0.5) {
+                        self.models[self.modelIndex].object3D.scale.set(1, 1, 1);
+                        self.models[self.modelIndex].object3D.position.y = 1;
+                        this.info = 1;
+                        vrInterface.showMessage('Size increased');
+                    }
+
+                });
+
+
+                vrInterface.addButton('rotation', '#rotation', () => {
+                    self.rotate = !self.rotate;
+
+                    vrInterface.showMessage(`Rotation is ${self.rotate ? 'on' : 'off'}`);
+                });
+
+                vrInterface.addButton('wireframe', '#wireframe', () => {
+                    if (this.wireframe) {
+                        self.models[self.modelIndex].object3D.children[0].visible = true;
+                        self.models[self.modelIndex].object3D.children[1].visible = false;
+                        this.wireframe = false;
+                    } else {
+                        self.models[self.modelIndex].object3D.children[0].visible = false;
+                        self.models[self.modelIndex].object3D.children[1].visible = true;
+                        this.wireframe = true;
+
+                        self.models[self.modelIndex].object3D.children[0].material.wireframe = true;
+                        self.models[self.modelIndex].object3D.children[0].material.emissive.set('#ffffff');
+                        this.wireframeColor = '#ffffff';
+                    }
+                    vrInterface.showMessage(`Wireframe is ${self.models[self.modelIndex].object3D.children[0].material.wireframe ? 'on' : 'off'}`);
+                });
+
+                document.addEventListener('pointerlockchange', (event) => {
+                    vrInterface.show();
+                    self.hide = false;
+                });
+
+                this.el.addEventListener('buttondown', () => {
+                    self.hide = !self.hide;
+                    if (self.hide) {
+                        vrInterface.hide();
+                    }
+                    else {
+                        vrInterface.show();
+                    }
+                });
+            },
+            tick: function (time, delta) {
+                if (this.rotate) {
+                    this.models[this.modelIndex].object3D.rotation.y += 0.015;
+                    this.models[this.modelIndex].object3D.rotation.x += 0.015;
+                    this.models[this.modelIndex].object3D.rotation.z += 0.015;
+                }
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <a-scene main_scene id="scene" background="color: #323232">
+        <a-assets timeout="3000">
+
+            <img id="next" src="assets/icons/next.png">
+            <img id="previous" src="assets/icons/previous.png">
+            <img id="rotation" src="assets/icons/rotation.png">
+            <img id="increase" src="assets/icons/increase.png">
+            <img id="decrease" src="assets/icons/decrease.png">
+            <img id="wireframe" src="assets/icons/wireframe.png">
+        </a-assets>
+
+
+        <a-entity light="type:directional" position="25 30 20"></a-entity>
+        <a-entity light="color: #fff; castShadow:true;" position="25 30 20"></a-entity>
+
+        <a-entity id="tetrahedron" name="Tetrahedron" class="menu-model"
+            geometry="primitive: tetrahedron; radius: 1; detail: 0" material="color:#ff0000" position="0 1 -3"
+            shadow="receive: true" visible="true">
+        </a-entity>
+        <a-entity id="box" name="Cube" class="menu-model" geometry="primitive: box; width: 1; height: 1; depth: 1"
+            position="0 1 -3" material="color:#ff0000" shadow="receive: true" visible="false">
+        </a-entity>
+        <a-entity id="octahedron" name="Octahedron" class="menu-model" geometry="primitive: octahedron; radius: 1"
+            position="0 1 -3" material="color:#ff0000" shadow="receive: true" visible="false">
+        </a-entity>
+        <a-entity id="dodecahedron" name="Dodecahedron" class="menu-model" geometry="primitive: dodecahedron; radius: 1"
+            position="0 1 -3" material="color:#ff0000" shadow="receive: true" visible="false">
+        </a-entity>
+        <a-entity id="icosahedron" name="Icosahedron" class="menu-model" geometry="primitive: icosahedron; radius: 1"
+            position="0 1 -3" material="color:#ff0000" shadow="receive: true" visible="false">
+        </a-entity>
+
+        <a-plane position="0 0 0" rotation="-90 0 0" width="20" height="20" color="#666666" shadow="receive: true">
+        </a-plane>
+
+        <a-entity id="rig" position="0 0 0" rotation="0 0 0">
+            <a-entity id="camera" camera position="0 1.6 0" look-controls="pointerLockEnabled: true">
+            </a-entity>
+        </a-entity>
+
+        <a-entity
+            vr-interface="dimension: 3 2; transparency: true; gap: 0.01 0.01; border: 1 #6d7584; messageBG: #121212"
+            config button-controls></a-entity>
+
+    </a-scene>
+</body>
+
+</html>
