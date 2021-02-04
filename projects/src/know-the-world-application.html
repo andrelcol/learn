@@ -13,73 +13,73 @@
             init: function () {
                 const vrInterface = this.el.components['vr-interface'];
                 var skyEl = this.el.sceneEl.querySelector('#place');
-                let string = '\n\n\nPLACE: San Francisco, California United States of America.';
-                string += '\n\nFort Point is a masonry seacoast fortification located on the southern side of the Golden Gate at the entrance to San Francisco Bay.\n';
-                string += 'It is also the geographic name of the promontory upon which the fort and the southern approach of the Golden Gate Bridge were constructed.\n\n\n';
+                let string = '\nPLACE: San Francisco, California United States of America.\n';
+                string += '\nFort Point is a masonry seacoast fortification \nlocated on the southern side of the Golden Gate at\n the entrance to San Francisco Bay.';
+                string += '\nIt is also the geographic name of the promontory \nupon which the fort and the southern approach of\n the Golden Gate Bridge were constructed.\n\n';
              
                 vrInterface.showSideText(string);
 
                 vrInterface.addButton('fort', '#fort', () => {
                     skyEl.setAttribute('src', '#fort-point');
-                    string = '\n\n\nPLACE: San Francisco, California United States of America.';
-                    string += '\n\nFort Point is a masonry seacoast fortification located on the southern side of the Golden Gate at the entrance to San Francisco Bay.\n';
-                    string += 'It is also the geographic name of the promontory upon which the fort and the southern approach of the Golden Gate Bridge were constructed.\n\n\n';
+                    string = '\nPLACE: San Francisco, California United States of America.\n';
+                    string += '\nFort Point is a masonry seacoast fortification \nlocated on the southern side of the Golden Gate at\n the entrance to San Francisco Bay.';
+                    string += '\nIt is also the geographic name of the promontory \nupon which the fort and the southern approach of\n the Golden Gate Bridge were constructed.\n\n';
                     vrInterface.showSideText(string);
                 });
 
                 vrInterface.addButton('time', '#time', () => {
                     skyEl.setAttribute('src', '#time-square');
-                    string = '\n\n\nPLACE: New York City, New York, United States of America.';
-                    string += '\n\nTimes Square is a section of Manhattan, New York City.It is a major center for tourism, show business and commerce.\n';
-                    string += 'It is named for the New York Times which formerly had its main building there.One of the biggest stations in the New York City Subway system is under.\n\n';
+                    string = '\nPLACE: New York City, New York, United States of America.\n';
+                    string += '\nTimes Square is a section of Manhattan, New York \nCity.It is a major center for tourism, show business \nand commerce.';
+                    string += '\nIt is named for the New York Times which formerly \nhad its main building there.One of the biggest \nstations in the New York City Subway system is under.\n\n';
                     vrInterface.showSideText(string);
                 });
 
                 vrInterface.addButton('miami1', '#miami1', () => {
                     skyEl.setAttribute('src', '#miami');
-                    string = '\n\n\nPLACE: City of Miami, Florida, United States of America';
-                    string += '\n\nMiami is a metropolis located in southeastern Florida in the United States.It is the third most populous metropolis on\n the East coast of the United States, and it is the seventh largest in the country.\n';
-                    string += 'It is also the major center and leader in finance, commerce, culture, arts, and international trade.\n\n\n';
+                    string = '\nPLACE: City of Miami, Florida, United States of America.\n';
+                    string += '\nMiami is a metropolis located in southeastern \nFlorida in the United States.It is the third most \npopulous metropolis on the East coast of the \nUnited States, and it is the seventh largest in the \ncountry.';
+                    string += 'It is also the major center and leader in \nfinance, commerce, culture, arts, and international trade.\n\n\n';
                     vrInterface.showSideText(string);
                 });
 
                 vrInterface.addButton('italy1', '#italy1', () => {
                     skyEl.setAttribute('src', '#italy');
-                    string = '\n\n\nPLACE: Bolzano, Trentino-Alto Adige, Italy';
-                    string += '\n\nBrennero is located in South Tyrol, in Italy. It is famous for its ski resorts and receives many visitors in the winter.\n';
-                    string += 'It is also have the Plessi Museum that has a amazing architecture.\n\n\n';
+                    string = '\nPLACE: Bolzano, Trentino-Alto Adige, Italy.\n';
+                    string += '\nBrennero is located in South Tyrol, in Italy.\nIt is famous for its ski resorts and receives many\n visitors in the winter.';
+                    string += '\nIt is also have the Plessi Museum that has a \namazing architecture.\n\n\n';
                     vrInterface.showSideText(string);
                 });
 
                 vrInterface.addButton('gavea1', '#gavea1', () => {
                     skyEl.setAttribute('src', '#gavea');
-                    string = '\n\n\nPLACE: City of Rio de Janeiro, Rio de Janeiro, Brazil';
-                    string += '\n\n\nGavea is a favorite residential area and lies close to Leblon, Lagoa, Jardim Botanico and São Conrado. It has its own quaint \ncharm and attractions that makes it a popular tourist spot.';
-                    string += 'It is also offers lots of different cultural attractions around the neighborhood, and is home\n to one of the largest universities in the country, PUC.\n\n\n\n';
+                    string = '\nPLACE: City of Rio de Janeiro, Rio de Janeiro, Brazil.\n';
+                    string += '\nGavea is a favorite residential area and lies \nclose to Leblon, Lagoa, Jardim Botanico and São \nConrado.It has its own quaint charm and \nattractions that makes it a popular tourist spot.';
+                    string += '\nIt is also offers lots of different cultural \nattractions around the neighborhood, and is home\n to one of the largest universities in the country, PUC.\n\n';
                     vrInterface.showSideText(string);
                 });
 
                 vrInterface.addButton('palacioO', '#palacioO', () => {
                     skyEl.setAttribute('src', '#castle');
-                    string = '\n\n\nPLACE:  Zaragoza, Aragon, Spain.';
-                    string += '\n\nThe Aljafería Palace is a fortified medieval palace built during the second half of the 11th century in the Taifa of Zaragoza in Al-Andalus,\n present day Zaragoza, Aragon, Spain.';
-                    string += 'The structure holds unique importance in that it is the only conserved testimony of a large building of Spanish\n Islamic architecture of the era of the Taifas (independent kingdoms). \n\n\n\n';
+                    string = '\nPLACE:  Zaragoza, Aragon, Spain.\n';
+                    string += '\nThe Aljafería Palace is a fortified medieval palace\n built during the second half of the 11th century\n in the Taifa of Zaragoza in Al-Andalus,\n present day Zaragoza, Aragon, Spain.';
+                    string += '\nThe structure holds unique importance in that it\n is the only conserved testimony of a large \nbuilding of Spanish Islamic architecture of the \nera of the Taifas (independent kingdoms). \n\n\n';
                     vrInterface.showSideText(string);
                 });
 
                 vrInterface.addButton('prerow1', '#prerow1', () => {
                     skyEl.setAttribute('src', '#prerow');
-                    string = '\n\n\nPLACE: Prerow,  Mecklenburg-Vorpommern, Germany.';
-                    string += '\n\nPrerow is a municipality in the district of Vorpommern-Rügen in the German state of Mecklenburg-Vorpommern.\n';
-                    string += 'The seaside resort of Prerow is located within the Western Pomerania Lagoon Area National Park which stretches from Ahrenshoop along\n the southern coast to the island of Hiddensee. \n\n\n\n';
+                    string = '\nPLACE: Prerow,  Mecklenburg-Vorpommern, Germany.\n';
+                    string += '\nPrerow is a municipality in the district of \nVorpommern-Rügen in the German state of Mecklenburg-Vorpommern.';
+                    string += '\nThe seaside resort of Prerow is located within\n the Western Pomerania Lagoon Area National Park\n which stretches from Ahrenshoop along\n the southern coast to the island of Hiddensee. \n\n\n\n';
                     vrInterface.showSideText(string);
                 });
 
                 vrInterface.addButton('st-pter1', '#st-pter1', () => {
                     skyEl.setAttribute('src', '#st-pter');
-                    string = '\n\n\nPLACE: Saint Petersburg, Northwestern, Russia.';
-                    string += '\n\nSaint Petersburg is situated on the Neva River, at the head of the Gulf of Finland on the Baltic Sea, with a population of roughly 5.4 million residents..\n';
-                    string += 'Saint Petersburg is known as the "Cultural Capital of Russia", and received over 15 million tourists in 2018, and is considered an important \neconomic, scientific, cultural, and tourism centre of Russia and Europe. \n\n\n\n';
+                    string = '\nPLACE: Saint Petersburg, Northwestern, Russia.\n';
+                    string += '\nSaint Petersburg is situated on the Neva River,\n at the head of the Gulf of Finland on the Baltic \nSea, with a population of roughly 5.4 million \nresidents.';
+                    string += 'Saint Petersburg is known as the \n"Cultural Capital of Russia", and received over 15 \nmillion tourists in 2018, and is considered an \nimportant economic, scientific, cultural, and \ntourism centre of Russia and Europe. \n\n';
                     vrInterface.showSideText(string);
                 });
 
@@ -137,10 +137,12 @@
 
         <a-sky src="#fort-point" rotation="0 -100 0" id="place"></a-sky>
 
-        <a-entity vr-interface="dimension: 4 2; theta: 135; transparency: true; gap: 0.01 0.01; border: 1 #6d7584;"
-                  config button-controls>
+                 config button-controls>
         </a-entity>
 
+        <a-entity vr-interface="dimension: 4 2; orbits: 1 1.5 2; theta: 90; rho: 0 ; transparency: true; gap: 0.01 0.01; border: 1.2 #6d7584; messageColor: yellow; messageSize: 2"
+                   config button-controls>
+        </a-entity>
 
         <a-entity id="rig" position="0 0 0" rotation="0 0 0">
             <a-entity id="camera" camera position="0 1.6 0" look-controls="pointerLockEnabled: true"
