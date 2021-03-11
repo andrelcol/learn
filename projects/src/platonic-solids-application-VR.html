@@ -201,11 +201,8 @@
                         self.models[self.modelIndex].object3D.children[1].visible = true;
                         this.wireframe = true;
 
-                        self.models[self.modelIndex].object3D.children[0].material.wireframe = true;
-                        self.models[self.modelIndex].object3D.children[0].material.emissive.set('#ffffff');
-                        this.wireframeColor = '#ffffff';
                     }
-                    vrInterface.showMessage(`Wireframe is ${self.models[self.modelIndex].object3D.children[0].material.wireframe ? 'on' : 'off'}`);
+                    vrInterface.showMessage(`Wireframe is ${this.wireframe ? 'on' : 'off'}`);
                 });
 
                 document.addEventListener('pointerlockchange', (event) => {

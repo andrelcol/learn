@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html>
+<html lang="pt">
 
 <head>
     <meta charset="UTF-8">
@@ -168,130 +168,148 @@
             },
             updateInfo: function () {
                 let string = ``;
-                string += `Status: ${this.world.gravity.y < 0 ? 'Running' : 'Paused'}\n`;
-                string += `Angle: ${Math.round(this.angle * 180 / Math.PI)} deg\n`;
-                string += `Friction coef: ${this.rampFriction * 250}\n`;
-                string += `Friction force: ${(this.rampFriction * this.cube.body.mass * this.gravity * -250 * Math.cos(this.angle)).toFixed(2)} N\n`;
-                string += `Weight: ${this.cube.body.mass * this.gravity * -1} N\n`;
-                string += `WeightX: ${(this.cube.body.mass * this.gravity * Math.sin(this.angle) * -1).toFixed(2)} N\n`;
-                string += `WeightY: ${(this.cube.body.mass * this.gravity * Math.cos(this.angle) * -1).toFixed(2)} N\n`;
-                string += `Normal: ${(this.cube.body.mass * this.gravity * Math.cos(this.angle) * -1).toFixed(2)} N\n`;
-
-                this.vrInterface.showSideText(string);
-            },
-            updateArrows: function () {
-                this.groupForces.object3D.position.copy(this.cube.body.position)
-                this.groupForces.object3D.position.y += 2;
-
-                this.normalArrow.rotation.x = this.arrowAngle;
-                this.frictionArrow.rotation.x = this.arrowAngle - Math.PI / 2;
-            },
-            changeAngle: function (increment) {
-
-                let ramp = this.ramp.object3D;
-                let wall = this.wall.object3D;
-                let cube = this.cube.object3D;
-                let sin;
-                let cos;
-
-                increment = increment < 0 ? -1 : 1;
-
-                if ((increment === 1 && this.angle > Math.PI / 4) || (increment === -1 && this.angle < Math.PI / 6)) {
-                    return;
+                var language = location.search;
+                if (language.length != 0) {
+                    let aux = "?lang=";
+                    language = language.substring(aux.length, language.length);
+                    switch (language) {
+                        case "en-US":
+                            string += `Status: ${this.world.gravity.y < 0 ? 'Running' : 'Paused'}\n`;
+                            string += `Angle: ${Math.round(this.angle * 180 / Math.PI)} deg\n`;
+                            string += `Friction coef: ${this.rampFriction * 250}\n`;
+                            string += `Friction force: ${(this.rampFriction * this.cube.body.mass * this.gravity * -250 * Math.cos(this.angle)).toFixed(2)} N\n`;
+                            string += `Weight: ${this.cube.body.mass * this.gravity * -1} N\n`;
+                            string += `WeightX: ${(this.cube.body.mass * this.gravity * Math.sin(this.angle) * -1).toFixed(2)} N\n`;
+                            string += `WeightY: ${(this.cube.body.mass * this.gravity * Math.cos(this.angle) * -1).toFixed(2)} N\n`;
+                            string += `Normal: ${(this.cube.body.mass * this.gravity * Math.cos(this.angle) * -1).toFixed(2)} N\n`;
+                            break;
+                        case "pt-BR":
+                            string += `Situação: ${this.world.gravity.y < 0 ? 'Running' : 'Paused'}\n`;
+                            string += `Angle: ${Math.round(this.angle * 180 / Math.PI)} deg\n`;
+                            string += `Friction coef: ${this.rampFriction * 250}\n`;
+                            string += `Friction force: ${(this.rampFriction * this.cube.body.mass * this.gravity * -250 * Math.cos(this.angle)).toFixed(2)} N\n`;
+                            string += `Weight: ${this.cube.body.mass * this.gravity * -1} N\n`;
+                            string += `WeightX: ${(this.cube.body.mass * this.gravity * Math.sin(this.angle) * -1).toFixed(2)} N\n`;
+                            string += `WeightY: ${(this.cube.body.mass * this.gravity * Math.cos(this.angle) * -1).toFixed(2)} N\n`;
+                            string += `Normal: ${(this.cube.body.mass * this.gravity * Math.cos(this.angle) * -1).toFixed(2)} N\n`;
+                            break;
+                    }
                 }
+                    this.vrInterface.showSideText(string);
+                },
+                updateArrows: function () {
+                    this.groupForces.object3D.position.copy(this.cube.body.position)
+                    this.groupForces.object3D.position.y += 2;
 
-                this.angle += Math.PI / 12 * increment; // 15 deg
-                sin = Math.sin(this.angle) * ramp.scale.z
-                cos = Math.cos(this.angle) * -ramp.scale.z;
+                    this.normalArrow.rotation.x = this.arrowAngle;
+                    this.frictionArrow.rotation.x = this.arrowAngle - Math.PI / 2;
+                },
+                changeAngle: function (increment) {
 
-                this.normalArrow.rotation.x = this.angle;
-                this.frictionArrow.rotation = -this.angle;
+                    let ramp = this.ramp.object3D;
+                    let wall = this.wall.object3D;
+                    let cube = this.cube.object3D;
+                    let sin;
+                    let cos;
 
-                ramp.rotation.x = this.angle;
-                ramp.position.y = sin / 2;
+                    increment = increment < 0 ? -1 : 1;
+
+                    if ((increment === 1 && this.angle > Math.PI / 4) || (increment === -1 && this.angle < Math.PI / 6)) {
+                        return;
+                    }
+
+                    this.angle += Math.PI / 12 * increment; // 15 deg
+                    sin = Math.sin(this.angle) * ramp.scale.z
+                    cos = Math.cos(this.angle) * -ramp.scale.z;
+
+                    this.normalArrow.rotation.x = this.angle;
+                    this.frictionArrow.rotation = -this.angle;
+
+                    ramp.rotation.x = this.angle;
+                    ramp.position.y = sin / 2;
 
 
-                wall.scale.set(5, sin, 0.1) //sin;
-                wall.position.y = wall.scale.y / 2;
-                wall.position.z = -Math.cos(this.angle) * ramp.scale.z / 2;
+                    wall.scale.set(5, sin, 0.1) //sin;
+                    wall.position.y = wall.scale.y / 2;
+                    wall.position.z = -Math.cos(this.angle) * ramp.scale.z / 2;
 
-                let z = wall.position.z + 0.7;
-                let y = sin - 0.11;
+                    let z = wall.position.z + 0.7;
+                    let y = sin - 0.11;
 
-                if (this.angle < Math.PI / 3) {
-                    y += 0.2;
-                }
-                if (this.angle < Math.PI / 4) {
-                    y += 0.15;
-                }
-                if (this.angle < Math.PI / 6) {
-                    y += 0.15;
-                }
+                    if (this.angle < Math.PI / 3) {
+                        y += 0.2;
+                    }
+                    if (this.angle < Math.PI / 4) {
+                        y += 0.15;
+                    }
+                    if (this.angle < Math.PI / 6) {
+                        y += 0.15;
+                    }
 
-                // stop cube
-                this.cube.body.velocity.set(0, 0, 0);
-                this.cube.body.angularVelocity.set(0, 0, 0);
-                this.cube.body.vlambda.set(0, 0, 0);
-                this.cube.body.wlambda.set(0, 0, 0);
+                    // stop cube
+                    this.cube.body.velocity.set(0, 0, 0);
+                    this.cube.body.angularVelocity.set(0, 0, 0);
+                    this.cube.body.vlambda.set(0, 0, 0);
+                    this.cube.body.wlambda.set(0, 0, 0);
 
-                this.cube.body.quaternion.setFromEuler(this.angle, 0, 0);
-                this.cube.body.position.set(0, y, z);
+                    this.cube.body.quaternion.setFromEuler(this.angle, 0, 0);
+                    this.cube.body.position.set(0, y, z);
 
-                this.world.gravity.y = 0;
+                    this.world.gravity.y = 0;
 
-                this.arrowAngle = this.angle;
+                    this.arrowAngle = this.angle;
 
-                this.updateInfo();
-                this.updateArrows();
+                    this.updateInfo();
+                    this.updateArrows();
 
-            },
-            startSimulation: function () {
-                let ramp = this.ramp.object3D;
-                let wall = this.wall.object3D;
+                },
+                startSimulation: function () {
+                    let ramp = this.ramp.object3D;
+                    let wall = this.wall.object3D;
 
-                sin = Math.sin(this.angle) * ramp.scale.z
-                cos = Math.cos(this.angle) * -ramp.scale.z;
+                    sin = Math.sin(this.angle) * ramp.scale.z
+                    cos = Math.cos(this.angle) * -ramp.scale.z;
 
-                let z = wall.position.z + 0.7;
-                let y = sin - 0.11;
+                    let z = wall.position.z + 0.7;
+                    let y = sin - 0.11;
 
-                if (this.angle < Math.PI / 3) {
-                    y += 0.2;
-                }
-                if (this.angle < Math.PI / 4) {
-                    y += 0.15;
-                }
-                if (this.angle < Math.PI / 6) {
-                    y += 0.15;
-                }
+                    if (this.angle < Math.PI / 3) {
+                        y += 0.2;
+                    }
+                    if (this.angle < Math.PI / 4) {
+                        y += 0.15;
+                    }
+                    if (this.angle < Math.PI / 6) {
+                        y += 0.15;
+                    }
 
-                // stop cube
-                this.cube.body.velocity.set(0, 0, 0);
-                this.cube.body.angularVelocity.set(0, 0, 0);
-                this.cube.body.vlambda.set(0, 0, 0);
-                this.cube.body.wlambda.set(0, 0, 0);
+                    // stop cube
+                    this.cube.body.velocity.set(0, 0, 0);
+                    this.cube.body.angularVelocity.set(0, 0, 0);
+                    this.cube.body.vlambda.set(0, 0, 0);
+                    this.cube.body.wlambda.set(0, 0, 0);
 
-                this.cube.body.quaternion.setFromEuler(this.angle, 0, 0);
-                this.cube.body.position.set(0, y, z);
+                    this.cube.body.quaternion.setFromEuler(this.angle, 0, 0);
+                    this.cube.body.position.set(0, y, z);
 
-                this.world.gravity.y = -9.8;
+                    this.world.gravity.y = -9.8;
 
-                this.arrowAngle = this.angle;
+                    this.arrowAngle = this.angle;
 
-                this.updateInfo();
-            },
-            changeFriction: function (increment) {
-                increment = increment < 0 ? -1 : 1;
+                    this.updateInfo();
+                },
+                changeFriction: function (increment) {
+                    increment = increment < 0 ? -1 : 1;
 
-                if ((increment === 1 && this.rampFriction === 0.003) || (increment === -1 && this.rampFriction === 0.0)) {
-                    return;
-                }
+                    if ((increment === 1 && this.rampFriction === 0.003) || (increment === -1 && this.rampFriction === 0.0)) {
+                        return;
+                    }
 
-                this.rampFriction += 0.001 * increment;
-                this.contactRamp.friction = this.rampFriction;
-                this.updateInfo();
-            },
-        });
+                    this.rampFriction += 0.001 * increment;
+                    this.contactRamp.friction = this.rampFriction;
+                    this.updateInfo();
+                },
+            });
     </script>
 
 </head>

@@ -2,36 +2,29 @@
   Usage:
   - Import vr-interface to your code:
     <script type="text/javascript" charset="UTF-8" src="path/to/vr-interface.js"></script>
-
   - Call it in an aframe entity and pass the options to config like the example below:
       <a-entity vr-interface="dimension: 3 2; orbits: 1 1.5 2 ; theta: 90; rho: 0; transparency: true; gap: 0.01 0.01; border: 1.2 #6d7584; movementBar: true"</a-entity>
-
   - To add buttons and use functions create a component in your code
     AFRAME.registerComponent('my-component', {
       init: function () {
         const vrInterface = document.querySelector('[vr-interface]').components['vr-interface'];
-
         vrInterface.addButton('myButton', '#myTexture', function() {
           vrInterface.showMessage('Button pressed');
         });
-
         vrInterface.addButton('myButton2', '#myTexture2', function() {
           vrInterface.showMessage('Button 2 pressed', 'bottom');
         });
-
         vrInterface.addButton('myButtonRotate', '#myTexture3', function(){
           vrInterface.updatePosition({theta: 180, rho: 15})
         });
       },
     });
-
     - There are two ways to define the position to the vr-interface: relative to the camera and relative to the world.
       Positioning relative to the camera works similar to polar coordinates, where the camera is the pole and you define some orbits (distances to the camera), theta (horizontal angle), and rho (vertical angle)
         <a-entity vr-interface="orbits: 1; theta: 45; rho: 45;"></a-entity>
       Positioning relative to the world works like positioning regular a-frame object, you define position and rotation in each axis
         <a-entity vr-interface="worldPosition: -1 1.6 -1; rotation: 0 45 0">
       The advantage of positioning relative to the camera is being able to move the vr-interface if movementBar is set to true;
-
   Properties:
   - visible: visibilty of the interface;
   - orbits: distances from the camera;
@@ -52,7 +45,6 @@
   - cursorPosition: defines the positon of the aim cursor, usually it doesn't need to change;
   - raycaster: defines near and far properties of the raycaster;
   - border: thickness and color of button border, if nothing is set, no border is added.
-
   Functions:
   - addButton(buttonName, idOfTexture, callback) - adds a button to the interface
   - showMessage(message, position) - shows message, position parameter is optional
@@ -102,6 +94,8 @@ AFRAME.registerComponent('vr-interface', {
       default: 'top',
       oneof: ['top', 'bottom', 'left', 'right'],
     },
+    sideTextSize: { type: 'vec2', default: { x: 0.75, y: 1 } },
+    sideTextRotation: { type: 'number', default: 0 },
     messageColor: { type: 'color', default: 'white' },
     messageBG: { type: 'color', default: '#232323' },
     messageSize: { type: 'number', default: 1 },
@@ -199,17 +193,19 @@ AFRAME.registerComponent('vr-interface', {
 
     this.message = document.createElement('a-entity');
     this.message.setAttribute('text', { align: 'center', width: data.messageSize, height: data.messageSize, color: new THREE.Color(data.messageColor) });
-    this.message.setAttribute('geometry', { primitive: 'plane', height: data.messageSize , width: data.messageSize });
+    this.message.setAttribute('geometry', { primitive: 'plane', height: data.messageSize * 0.1, width: data.messageSize });
     this.message.setAttribute('material', { color: new THREE.Color(data.messageBG), transparent: data.transparency, opacity: data.transparency ? 0.75 : 1 });
     this.message.object3D.visible = false;
     this.buttonGroup.appendChild(this.message);
 
+    this.pivot = document.createElement('a-entity');
     this.sideText = document.createElement('a-entity');
-    this.sideText.setAttribute('text', { align: 'center', width: data.messageSize  , height: data.messageSize , transparent: true, color: new THREE.Color(data.messageColor) });
-    this.sideText.setAttribute('geometry', { primitive: 'plane', height: data.messageSize , width: data.messageSize });
+    this.sideText.setAttribute('text', { align: 'center', width: data.messageSize, height: data.messageSize, transparent: true, color: new THREE.Color(data.messageColor) });
+    this.sideText.setAttribute('geometry', { primitive: 'plane', height: data.sideTextSize.y, width: data.sideTextSize.x });
     this.sideText.setAttribute('material', { color: new THREE.Color(data.messageBG), transparent: data.transparency, opacity: data.transparency ? 0.75 : 1 });
     this.sideText.object3D.visible = false;
-    this.buttonGroup.appendChild(this.sideText);
+    this.pivot.appendChild(this.sideText);
+    this.buttonGroup.appendChild(this.pivot);
 
     if (data.border.color) {
       this.borderMaterial = new THREE.LineBasicMaterial({
@@ -230,7 +226,7 @@ AFRAME.registerComponent('vr-interface', {
       self.updatePosition();
     }, { once: true });
 
-    this.el.addEventListener('click', (evt) => self.clickHandle(evt)); // click == fuse click
+    this.el.addEventListener('click', (evt) => self.handleClick(evt)); // click == fuse click
   },
   tick: function () {
     if (this.isToChangeTheta) {
@@ -243,7 +239,7 @@ AFRAME.registerComponent('vr-interface', {
       this.buttonGroup.object3D.rotation.x = this.data.rho;
     }
   },
-  clickHandle: function (evt) {
+  handleClick: function (evt) {
     let name = evt.detail.intersection.object.name;
 
     if (name === 'orbitButton') {
@@ -528,10 +524,13 @@ AFRAME.registerComponent('vr-interface', {
   },
   positionateSideText: function () {
     const sideText = this.sideText.object3D;
+    const pivot = this.pivot.object3D;
 
-    // position x of the button more to the right + horizontal size of a button + half of (scaled sideText size - horizontal size of a button) + constant gap
-    sideText.position.x = this.buttons[this.data.dimension.y - 1].position.x + this.data.buttonSize.x + (sideText.children[1].scale.x * this.data.messageSize - this.data.buttonSize.x) * 0.5 + 0.02;
-    sideText.position.z = this.buttons[0].position.z;
+    pivot.position.z = this.buttons[0].position.z;
+    pivot.position.x = this.buttons[this.data.dimension.y - 1].position.x + this.data.buttonSize.x * 0.5 + 0.02;
+      pivot.rotation.y = this.data.sideTextRotation * Math.PI / 180;
+      sideText.position.x = + sideText.children[1].scale.x * this.data.sideTextSize.x * 0.5;
+      //sideText.position.x = + sideText.children[1].scale.x * this.data.messageSize * 0.5;
   },
   positionateBorder: function (button) {
     button.border.scale.copy(button.scale);
